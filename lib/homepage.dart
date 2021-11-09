@@ -1,6 +1,9 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:shoppingcartforhackathon/CartScreen.dart';
+import 'package:shoppingcartforhackathon/drawer.dart';
 import 'package:shoppingcartforhackathon/favoriteScreen.dart';
+
 List productnamecart = [];
 List pnameforcart = [];
 List productpricecart = [];
@@ -10,15 +13,33 @@ List productpricefav = [];
 List productimagefav = [];
 
 class Home extends StatefulWidget {
-  const Home({ Key? key }) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  List productName = ['Yellow T-Shirt', 'Blue Jeans', 'Joggers', 'Checkers Shirt', 'Cargo Pants','Jeans', 'Shoes', 'Formal Shirt',  ];
-  List productPrice = ['\$50', '\$100', '\$150', '\$200', '\$250','\$300', '\$350', '\$400',  ];
+  List productName = [
+    'Yellow T-Shirt',
+    'Blue Jeans',
+    'Joggers',
+    'Checkers Shirt',
+    'Cargo Pants',
+    'Jeans',
+    'Shoes',
+    'Formal Shirt',
+  ];
+  List productPrice = [
+    '\$50',
+    '\$100',
+    '\$150',
+    '\$200',
+    '\$250',
+    '\$300',
+    '\$350',
+    '\$400',
+  ];
   List productImage = [
     'data:image/jpeg;base64,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',
     'data:image/jpeg;base64,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',
@@ -32,72 +53,140 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [IconButton(icon: Icon(Icons.favorite), onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Favorite()));
-        
-        }),
-        IconButton(
-          icon: Icon(Icons.shopping_cart_outlined),
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => CartScreen(),
+      drawer: DrawerSc(),
+        appBar: AppBar(
+          actions: [
+              IconButton(icon: Icon(Icons.favorite), onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => Favorite()));
+              
+            }
+            ),
+            // Badge(
+            //   badgeContent: Text(pnameforcart.length.toString()),
+            //   child: Icon(Icons.settings),
+            // ),
+            IconButton(
+              icon: Icon(Icons.shopping_cart_outlined),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CartScreen(),
+                  ),
+                );
+              },
+            ),
+          ],
+          centerTitle: true,
+          title: Text('Home Page'),
+          backgroundColor: Colors.indigo[900],
+        ),
+        body: ListView.builder(
+          itemBuilder: (context, index) {
+            return Container(
+              
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                   'https://media.istockphoto.com/vectors/shopping-vector-seamless-pattern-vector-eps8-format-vector-id1043135760?k=20&m=1043135760&s=612x612&w=0&h=NZO7oOiclK9zdOXZRqJtt-X2gJTDqBWPBwmXoQg-6-Y=',),fit: BoxFit.cover)
+              ),
+              child: Center(
+                child: Container(
+                  height: MediaQuery.of(context).size.height*0.335,
+                  width: MediaQuery.of(context).size.width*0.85,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(children: [
+                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
+                        IconButton(
+                          onPressed: () {
+                            if (pnameforfav.contains(productName[index])) {
+                              print("Item already Exist");
+                            } else {
+                              pnameforfav.add(productName[index]);
+                              productimagefav.add(productImage[index]);
+                              productpricefav.add(productPrice[index]);
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text('Added to favorites'),
+                                  duration: Duration(seconds: 2),
+                                ));
+                              
+                            }
+                          },
+                          icon: Icon(
+                            Icons.favorite_border_outlined,
+                            color: pnameforfav.contains(productName[index])
+                                ? Colors.red
+                                : Colors.black,
+                          ),
+                        ),
+                        new Container(
+          
+          color: Colors.transparent,
+          child: new Container(
+                decoration: new BoxDecoration(
+                  color: Colors.orange[900],
+                  borderRadius: new BorderRadius.all(
+                   Radius.circular(10.0),
+                  )
+                ),
+                child: new Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: new Text("30% off", style: TextStyle(color: Colors.white),),
+                ),
+           )
+         ),
+        ),
+                      ]),
+                      Image(
+                        image: NetworkImage(productImage[index]),
+                        height: 130,
+                        fit: BoxFit.contain,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: Text(
+                              productName[index],
+                              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(8,0,10,0),
+                            child: Text(
+                              productPrice[index],
+                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                pnameforcart.add(productName[index]);
+                                productimagecart.add(productImage[index]);
+                                productpricecart.add(productPrice[index]);
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  content: Text('Added to cart'),
+                                  duration: Duration(seconds: 2),
+                                ));
+                              },
+                              icon: Icon(Icons.shopping_cart_outlined)),
+                        ],
+                      )
+                    ]),
+                  ),
+                ),
               ),
             );
           },
-        ),],
-        centerTitle: true,
-      
-        title: Text('Home'),
-      ),
-      body: ListView.builder(itemBuilder: (context, index) {
-        return Container(
-          child: Card(
-            child: Column(
-              children:[
-                Image(image: NetworkImage(productImage[index]),width: MediaQuery.of(context).size.width*1,
-                height: 120,fit: BoxFit.contain,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(productName[index], style: TextStyle(fontWeight: FontWeight.w700),),
-                    Text(productPrice[index], style: TextStyle(fontWeight: FontWeight.w500),),
-                  ],
-                  
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                  IconButton(onPressed: (){
-                    pnameforcart.add(productName[index]);
-                    productimagecart.add(productImage[index]);
-                    productpricecart.add(productPrice[index]);
-                  }, icon: Icon(Icons.shopping_cart_outlined)),
-
-                  IconButton(onPressed: (){
-                    if(pnameforfav.contains(productName[index])){
-                     print("Item already Exist");
-                    }
-                    else{
-                      pnameforfav.add(productName[index]);
-                      productimagefav.add(productImage[index]);
-                      productpricefav.add(productPrice[index]);
-                    }
-
-
-
-                  },icon: Icon(Icons.favorite_border_outlined,color: pnameforfav.contains(productName[index])?Colors.red:Colors.black,),),
-                 
-                ],)
-                
-              ]
-            ),
-          
-          ),
-        );
-      },itemCount: productName.length,)
-      
-    );
+          itemCount: productName.length,
+        ));
   }
 }
