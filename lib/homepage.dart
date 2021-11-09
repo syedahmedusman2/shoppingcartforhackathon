@@ -88,11 +88,7 @@ class _HomeState extends State<Home> {
 
 
                   },icon: Icon(Icons.favorite_border_outlined,color: pnameforfav.contains(productName[index])?Colors.red:Colors.black,),),
-                  ElevatedButton(onPressed: (){
-                    print(pnameforfav);
-
-                  }, child: Text("child"))
-              
+                 
                 ],)
                 
               ]
