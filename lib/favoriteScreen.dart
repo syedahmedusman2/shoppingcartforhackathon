@@ -14,7 +14,7 @@ class _FavoriteState extends State<Favorite> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Home Page'),
+          title: Row(children: [Text("Favourite"), Icon(Icons.favorite, color: Colors.red,)],),
           backgroundColor: Colors.indigo[900],
         ),
         body: ListView.builder(

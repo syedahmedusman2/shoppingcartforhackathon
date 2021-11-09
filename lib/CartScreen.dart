@@ -16,13 +16,13 @@ class _CartScreenState extends State<CartScreen> {
         appBar: AppBar(
          
           centerTitle: true,
-          title: Text('Home Page'),
+          title: Row(children: [Text("MyCart"), Icon(Icons.shopping_cart_outlined, color: Colors.red,)],),
           backgroundColor: Colors.indigo[900],
         ),
         body: ListView.builder(
           itemBuilder: (context, index) {
             return Container(
-              
+              height: MediaQuery.of(context).size.height * 1,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
