@@ -19,18 +19,17 @@ class _CartScreenState extends State<CartScreen> {
           title: Row(children: [Text("MyCart"), Icon(Icons.shopping_cart_outlined, color: Colors.red,)],),
           backgroundColor: Colors.indigo[900],
         ),
-        body: ListView.builder(
-          itemBuilder: (context, index) {
-            return Container(
-              height: MediaQuery.of(context).size.height * 1,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                   'https://media.istockphoto.com/vectors/shopping-vector-seamless-pattern-vector-eps8-format-vector-id1043135760?k=20&m=1043135760&s=612x612&w=0&h=NZO7oOiclK9zdOXZRqJtt-X2gJTDqBWPBwmXoQg-6-Y=',),fit: BoxFit.cover)
-              ),
-              child: Center(
+        body: Container(
+           decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(
+                     'https://media.istockphoto.com/vectors/shopping-vector-seamless-pattern-vector-eps8-format-vector-id1043135760?k=20&m=1043135760&s=612x612&w=0&h=NZO7oOiclK9zdOXZRqJtt-X2gJTDqBWPBwmXoQg-6-Y=',),fit: BoxFit.cover)
+                ),
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              return Center(
                 child: Container(
-                  height: MediaQuery.of(context).size.height*0.335,
+                 height: MediaQuery.of(context).size.height*0.37,
                   width: MediaQuery.of(context).size.width*0.85,
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -41,9 +40,9 @@ class _CartScreenState extends State<CartScreen> {
                         
                         
                         new Container(
-          
-          color: Colors.transparent,
-          child: new Container(
+            
+            color: Colors.transparent,
+            child: new Container(
                 decoration: new BoxDecoration(
                   color: Colors.orange[900],
                   borderRadius: new BorderRadius.all(
@@ -55,9 +54,9 @@ class _CartScreenState extends State<CartScreen> {
                   padding: const EdgeInsets.all(6.0),
                   child: new Text("30% off", style: TextStyle(color: Colors.white),),
                 ),
-           )
-         ),
-        ),
+             )
+           ),
+          ),
                       ]),
                       Image(
                         image: NetworkImage(productimagecart[index]),
@@ -114,10 +113,10 @@ class _CartScreenState extends State<CartScreen> {
                     ]),
                   ),
                 ),
-              ),
-            );
-          },
-          itemCount: pnameforcart.length,
+              );
+            },
+            itemCount: pnameforcart.length,
+          ),
         ));
   }
 }

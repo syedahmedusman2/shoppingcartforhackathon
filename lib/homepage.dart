@@ -20,7 +20,21 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  int _selectedIndex = 0;  
+  static const List<Widget> _widgetOptions = <Widget>[  
+    Text('Home Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),  
+    Text('Search Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),  
+    Text('Profile Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),  
+  ];  
+  
+  void _onItemTapped(int index) {  
+    setState(() {  
+      _selectedIndex = index;  
+    });  
+  }  
+
   List productName = [
+    
     'Yellow T-Shirt',
     'Blue Jeans',
     'Joggers',
@@ -53,6 +67,26 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.indigo[900],
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, color: Colors.white,),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search, color: Colors.white),
+            title: Text('Search'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person, color: Colors.white),
+            title: Text('Profile'),
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
       drawer: DrawerSc(),
         appBar: AppBar(
           actions: [
@@ -91,7 +125,7 @@ class _HomeState extends State<Home> {
               ),
               child: Center(
                 child: Container(
-                  height: MediaQuery.of(context).size.height*0.335,
+                  height: MediaQuery.of(context).size.height*0.37,
                   width: MediaQuery.of(context).size.width*0.85,
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -142,7 +176,7 @@ class _HomeState extends State<Home> {
                       ]),
                       Image(
                         image: NetworkImage(productImage[index]),
-                        height: 130,
+                        height: 120,
                         fit: BoxFit.contain,
                       ),
                       Row(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoppingcartforhackathon/Login.dart';
 import 'package:shoppingcartforhackathon/homepage.dart';
 
 void main() {
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
             // is not restarted.
             primarySwatch: Colors.blue,
           ),
-          home: Home()),
+          home:Login()),
     );
   }
 }
