@@ -94,15 +94,21 @@ class _CartScreenState extends State<CartScreen> {
                           IconButton(
                               onPressed: () {
                                 setState(() {
+                                  cartnum= cartnum-1;
+                                });
+                                setState(() {
                                   
                                 pnameforcart.removeAt(index);
                                 productpricecart.removeAt(index);
                                 productimagecart.removeAt(index);
+                                
 
 
                                 });
+                                
                                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                  content: Text('Removed from Cart'),
+                                  backgroundColor: Colors.white70,
+                                  content: Text('Removed from Cart', style: TextStyle(color: Colors.black),),
                                   duration: Duration(seconds: 2),
                                 ));
                                 

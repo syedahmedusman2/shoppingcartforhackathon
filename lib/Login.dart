@@ -73,6 +73,7 @@ class _LoginState extends State<Login> {
   icon: Icon(Icons.login, color: Colors.indigo.shade900),
   label: Text("Login", style: TextStyle(color: Colors.indigo.shade900, fontSize: 20),),
   onPressed: (){
+    
     Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
   },
   

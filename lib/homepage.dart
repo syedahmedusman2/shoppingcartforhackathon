@@ -4,6 +4,17 @@ import 'package:shoppingcartforhackathon/CartScreen.dart';
 import 'package:shoppingcartforhackathon/drawer.dart';
 import 'package:shoppingcartforhackathon/favoriteScreen.dart';
 
+var cartnum = 0;
+List<bool> isFavourite = [
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false
+];
 List productnamecart = [];
 List pnameforcart = [];
 List productpricecart = [];
@@ -20,21 +31,25 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 0;  
-  static const List<Widget> _widgetOptions = <Widget>[  
-    Text('Home Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),  
-    Text('Search Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),  
-    Text('Profile Page', style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),  
-  ];  
-  
-  void _onItemTapped(int index) {  
-    setState(() {  
-      _selectedIndex = index;  
-    });  
-  }  
+  int _selectedIndex = 0;
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text('Home Page',
+        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+    Text('Search Page',
+        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+    Text('Profile Page',
+        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  Color? col;
 
   List productName = [
-    
     'Yellow T-Shirt',
     'Blue Jeans',
     'Joggers',
@@ -64,163 +79,287 @@ class _HomeState extends State<Home> {
     'https://res.cloudinary.com/atoms-shoes/image/upload/c_scale,w_1400,q_auto,f_auto/v1622733115/products/shoes/model000/black-white_profile',
     'data:image/jpeg;base64,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',
   ];
+  bool ispressed = false;
+  // bool isfavourite = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.indigo[900],
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Colors.white,),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search, color: Colors.white),
-            title: Text('Search'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Colors.white),
-            title: Text('Profile'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
-      ),
-      drawer: DrawerSc(),
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.indigo[900],
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+                color: Colors.white,
+              ),
+              title: Text('Home'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search, color: Colors.white),
+              title: Text('Search'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person, color: Colors.white),
+              title: Text('Profile'),
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.amber[800],
+          onTap: _onItemTapped,
+        ),
+        drawer: DrawerSc(),
         appBar: AppBar(
           actions: [
-              IconButton(icon: Icon(Icons.favorite), onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => Favorite()));
-              
-            }
-            ),
-            // Badge(
-            //   badgeContent: Text(pnameforcart.length.toString()),
-            //   child: Icon(Icons.settings),
-            // ),
             IconButton(
-              icon: Icon(Icons.shopping_cart_outlined),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => CartScreen(),
-                  ),
-                );
-              },
+                icon: Icon(Icons.favorite),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Favorite()));
+                }),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CartScreen()));
+                },
+                child: Badge(
+                  badgeContent: Text(cartnum.toString()),
+                  child: Icon(Icons.shopping_cart),
+                ),
+              ),
             ),
           ],
           centerTitle: true,
           title: Text('Home Page'),
           backgroundColor: Colors.indigo[900],
         ),
-        body: ListView.builder(
-          itemBuilder: (context, index) {
-            return Container(
-              
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(
-                   'https://media.istockphoto.com/vectors/shopping-vector-seamless-pattern-vector-eps8-format-vector-id1043135760?k=20&m=1043135760&s=612x612&w=0&h=NZO7oOiclK9zdOXZRqJtt-X2gJTDqBWPBwmXoQg-6-Y=',),fit: BoxFit.cover)
+        body: Column(
+          children: [
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  car("Shoes", "10 Pieces left",'https://images.designtrends.com/wp-content/uploads/2016/01/23124925/Rosso-Italiano-Black-Light-Formal-Shoe.jpg'),
+                  car("Suit", "5 Pieces left", 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrAyIVyuU1zBUX21e2LIbHecl7pa4H8t0JZX5UEpyGapFcdOHD918t_fZLI4cHK3Y_TT4&usqp=CAU'),
+                  car("Shirts", "18 Pieces left", productImage[7]),
+                  car("T-Shirts", "9 Pieces left", productImage[0]),
+                  car("Joggers", "0 Pieces left", productImage[2]),
+                  car("Jeans", "3 Pieces left", productImage[1]),
+                  car("Track Suits", "22 Pieces left",'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM95sz4WiJQvXj6qkVgd0m-JFJi17-05Qm5eFK3G--5aYE_nIN3WT6f7-EeAOlvOTErqA&usqp=CAU'),
+                  
+                ],
               ),
-              child: Center(
-                child: Container(
-                  height: MediaQuery.of(context).size.height*0.37,
-                  width: MediaQuery.of(context).size.width*0.85,
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(children: [
-                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
-                        IconButton(
-                          onPressed: () {
-                            if (pnameforfav.contains(productName[index])) {
-                              print("Item already Exist");
-                            } else {
-                              pnameforfav.add(productName[index]);
-                              productimagefav.add(productImage[index]);
-                              productpricefav.add(productPrice[index]);
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                  content: Text('Added to favorites'),
-                                  duration: Duration(seconds: 2),
-                                ));
-                              
-                            }
-                          },
-                          icon: Icon(
-                            Icons.favorite_border_outlined,
-                            color: pnameforfav.contains(productName[index])
-                                ? Colors.red
-                                : Colors.black,
+            ),
+            
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(
+                              'https://media.istockphoto.com/vectors/shopping-vector-seamless-pattern-vector-eps8-format-vector-id1043135760?k=20&m=1043135760&s=612x612&w=0&h=NZO7oOiclK9zdOXZRqJtt-X2gJTDqBWPBwmXoQg-6-Y=',
+                            ),
+                            fit: BoxFit.cover)),
+                    child: Center(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height * 0.37,
+                        width: MediaQuery.of(context).size.width * 0.85,
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
+                          child: Column(children: [
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  IconButton(
+                                    onPressed: () {
+                                      if (pnameforfav
+                                          .contains(productName[index])) {
+                                        print("Item already Exist");
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          backgroundColor: Colors.white70,
+                                          content: Text(
+                                            'Item Already exist in favourite',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                          duration: Duration(seconds: 2),
+                                        ));
+                                        setState(() {
+                                          ispressed = true;
+                                          isFavourite[index] = true;
+                                        });
+                                      } else {
+                                        pnameforfav.add(productName[index]);
+                                        productimagefav
+                                            .add(productImage[index]);
+                                        productpricefav
+                                            .add(productPrice[index]);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          backgroundColor: Colors.white70,
+                                          content: Text(
+                                            'Added to favorites',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                          duration: Duration(seconds: 2),
+                                        ));
+                                        setState(() {
+                                          ispressed = true;
+                                          isFavourite[index] = true;
+                                        });
+                                        // productName[index].isFavorite = true;
+
+                                      }
+                                    },
+                                    icon: isFavourite[index]
+                                        ? Icon(
+                                            Icons.favorite,
+                                            color: Colors.red,
+                                          )
+                                        : Icon(Icons.favorite_border),
+                                    // ? Icon(
+                                    //     Icons.favorite,
+                                    //     color: Colors.red,
+                                    //   )
+                                    // : Icon(Icons.favorite_border),
+                                    // Icon(
+                                    //   Icons.favorite_border_outlined,
+                                    //   color: pnameforfav.contains(productName[index])
+                                    //       ? Colors.red
+                                    //       : Colors.black,
+                                    // ),
+                                  ),
+                                  new Container(
+                                    color: Colors.transparent,
+                                    child: new Container(
+                                        decoration: new BoxDecoration(
+                                            color: Colors.orange[900],
+                                            borderRadius: new BorderRadius.all(
+                                              Radius.circular(10.0),
+                                            )),
+                                        child: new Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(6.0),
+                                            child: new Text(
+                                              "30% off",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ]),
+                            Image(
+                              image: NetworkImage(productImage[index]),
+                              height: 120,
+                              fit: BoxFit.contain,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                  child: Text(
+                                    productName[index],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 16),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(8, 0, 10, 0),
+                                  child: Text(
+                                    productPrice[index],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      pnameforcart.add(productName[index]);
+                                      productimagecart.add(productImage[index]);
+                                      productpricecart.add(productPrice[index]);
+                                      setState(() {
+                                        cartnum++;
+                                      });
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                        backgroundColor: Colors.white70,
+                                        content: Text(
+                                          'Added to cart',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        duration: Duration(seconds: 2),
+                                      ));
+                                    },
+                                    icon: Icon(Icons.shopping_cart_outlined)),
+                              ],
+                            )
+                          ]),
                         ),
-                        new Container(
-          
-          color: Colors.transparent,
-          child: new Container(
-                decoration: new BoxDecoration(
-                  color: Colors.orange[900],
-                  borderRadius: new BorderRadius.all(
-                   Radius.circular(10.0),
-                  )
-                ),
-                child: new Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: new Text("30% off", style: TextStyle(color: Colors.white),),
-                ),
-           )
-         ),
-        ),
-                      ]),
-                      Image(
-                        image: NetworkImage(productImage[index]),
-                        height: 120,
-                        fit: BoxFit.contain,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                            child: Text(
-                              productName[index],
-                              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(8,0,10,0),
-                            child: Text(
-                              productPrice[index],
-                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                pnameforcart.add(productName[index]);
-                                productimagecart.add(productImage[index]);
-                                productpricecart.add(productPrice[index]);
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                  content: Text('Added to cart'),
-                                  duration: Duration(seconds: 2),
-                                ));
-                              },
-                              icon: Icon(Icons.shopping_cart_outlined)),
-                        ],
-                      )
-                    ]),
-                  ),
-                ),
+                    ),
+                  );
+                },
+                itemCount: productName.length,
               ),
-            );
-          },
-          itemCount: productName.length,
+            ),
+          ],
         ));
   }
+}
+
+Widget car(category, quantity, img) {
+  return Container(
+    height: 110,
+    width: 220,
+    child: Card(
+      //  Column(
+
+      //   children:[
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(5, 22, 3, 0),
+            child: Container(width: 50, height: 50, child: Image(image: NetworkImage(img))),
+          ),
+          Column(children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(55, 10, 0, 4),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  category,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(63, 3, 0, 5),
+              child: Text(quantity,
+                  style: TextStyle(fontSize: 18, color: Colors.purple)),
+            )
+          ])
+        ],
+      ),
+
+      // ]
+      // ),
+    ),
+  );
 }
