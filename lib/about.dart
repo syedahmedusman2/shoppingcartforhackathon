@@ -54,13 +54,9 @@ class About extends StatelessWidget {
                 size: 30,
               ),
               Center(
-                child: Container(
-                  child: Expanded(
-                    child: Text(
-                      '267 Julian Moterway, Lalukheat, Karachi   ',
-                      overflow: TextOverflow.clip,
-                    ),
-                  ),
+                child: Text(
+                  '267 Julian Moterway, Lalukheat, Karachi   ',
+                  
                 ),
               ),
               Text(

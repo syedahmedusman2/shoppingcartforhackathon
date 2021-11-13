@@ -110,19 +110,19 @@ class _HomeState extends State<Home> {
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.home,
-                  color: Colors.orange[900],
+                  color: col,
                 ),
                 title: Text('Home'),
               ),
               BottomNavigationBarItem(
                 icon: GestureDetector(onTap: (){
                   Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CustomSearchBarDemo()));
-                },child: Icon(Icons.search, color: Colors.orange[900])),
+                },child: Icon(Icons.search, color: col)),
                 title: Text('Search'),
               ),
               BottomNavigationBarItem(
-                icon: GestureDetector(onTap:(){ Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Profile()));},child: Icon(Icons.person, color: Colors.orange[900])),
-                title: Text('Profile'),
+                icon: GestureDetector(onTap:(){ Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Profile()));},child: Icon(Icons.person, color: col)),
+                title: Text('Profile', ),
               ),
             ],
             currentIndex: _selectedIndex,
