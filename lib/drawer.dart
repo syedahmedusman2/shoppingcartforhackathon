@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoppingcartforhackathon/CartScreen.dart';
 import 'package:shoppingcartforhackathon/Login.dart';
+import 'package:shoppingcartforhackathon/about.dart';
 import 'package:shoppingcartforhackathon/favoriteScreen.dart';
 
 class DrawerSc extends StatelessWidget {
@@ -36,7 +37,9 @@ class DrawerSc extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute(builder: (context)=>Favorite()));
             },
             ),
-            ListTile(title: Text("About"),leading: Icon(Icons.info),),
+            ListTile(title: Text("About"),leading: Icon(Icons.info),onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>About()));
+            },),
            
             
             
