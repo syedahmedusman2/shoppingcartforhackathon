@@ -59,7 +59,7 @@ class _CartScreenState extends State<CartScreen> {
           ),
                       ]),
                       Image(
-                        image: NetworkImage(productimagecart[index]),
+                        image: AssetImage(productimagecart[index]),
                         height: 130,
                         fit: BoxFit.contain,
                       ),

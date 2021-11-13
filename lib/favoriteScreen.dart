@@ -72,7 +72,7 @@ class _FavoriteState extends State<Favorite> {
                             ),
                           ]),
                       Image(
-                        image: NetworkImage(productimagefav[index]),
+                        image: AssetImage(productimagefav[index]),
                         height: 130,
                         fit: BoxFit.contain,
                       ),
