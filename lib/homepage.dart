@@ -6,6 +6,7 @@ import 'package:shoppingcartforhackathon/drawer.dart';
 import 'package:shoppingcartforhackathon/favoriteScreen.dart';
 import 'package:shoppingcartforhackathon/productdetails.dart';
 import 'package:shoppingcartforhackathon/profile.dart';
+import 'package:shoppingcartforhackathon/searchScreen.dart';
 
 
 
@@ -93,34 +94,47 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-                color: Colors.orange[900],
-              ),
-              title: Text('Home'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search, color: Colors.orange[900]),
-              title: Text('Search'),
-            ),
-            BottomNavigationBarItem(
-              icon: GestureDetector(onTap:(){ Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Profile()));},child: Icon(Icons.person, color: Colors.orange[900])),
-              title: Text('Profile'),
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.black,
+              blurRadius: 4,
             ),
           ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
-          onTap: _onItemTapped,
+        ),
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  color: Colors.orange[900],
+                ),
+                title: Text('Home'),
+              ),
+              BottomNavigationBarItem(
+                icon: GestureDetector(onTap: (){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CustomSearchBarDemo()));
+                },child: Icon(Icons.search, color: Colors.orange[900])),
+                title: Text('Search'),
+              ),
+              BottomNavigationBarItem(
+                icon: GestureDetector(onTap:(){ Navigator.of(context).push(MaterialPageRoute(builder: (_)=>Profile()));},child: Icon(Icons.person, color: Colors.orange[900])),
+                title: Text('Profile'),
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: Colors.amber[800],
+            onTap: _onItemTapped,
+          ),
         ),
         drawer: DrawerSc(),
         appBar: AppBar(
           leading:  Builder(
           builder: (context) => IconButton(
-            icon: Icon(Icons.menu, color: Colors.black,),
+            icon: Icon(Icons.menu, color: Colors.orange[900],),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
@@ -175,169 +189,163 @@ class _HomeState extends State<Home> {
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(
-                                'https://media.istockphoto.com/vectors/shopping-vector-seamless-pattern-vector-eps8-format-vector-id1043135760?k=20&m=1043135760&s=612x612&w=0&h=NZO7oOiclK9zdOXZRqJtt-X2gJTDqBWPBwmXoQg-6-Y=',
-                              ),
-                              fit: BoxFit.cover)),
-                      child: Center(
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (_)=>ProductDetail(image: productImage[index], name: productName[index],
-                             price: productPrice[index], desc: description)));
-                          },
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.37,
-                            width: MediaQuery.of(context).size.width * 0.85,
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Column(children: [
-                                Row(
-                                  
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          if (pnameforfav
-                                              .contains(productName[index])) {
-                                            print("Item already Exist");
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              backgroundColor: Colors.white70,
-                                              content: Text(
-                                                'Item Already exist in favourite',
-                                                style:
-                                                    TextStyle(color: Colors.black),
-                                              ),
-                                              duration: Duration(seconds: 2),
-                                            ));
-                                            setState(() {
-                                              ispressed = true;
-                                              isFavourite[index] = true;
-                                            });
-                                          } else {
-                                            pnameforfav.add(productName[index]);
-                                            productimagefav
-                                                .add(productImage[index]);
-                                            productpricefav
-                                                .add(productPrice[index]);
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(SnackBar(
-                                              backgroundColor: Colors.white70,
-                                              content: Text(
-                                                'Added to favorites',
-                                                style:
-                                                    TextStyle(color: Colors.black),
-                                              ),
-                                              duration: Duration(seconds: 2),
-                                            ));
-                                            setState(() {
-                                              ispressed = true;
-                                              isFavourite[index] = true;
-                                            });
-                                            // productName[index].isFavorite = true;
+                    return Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (_)=>ProductDetail(image: productImage[index], name: productName[index],
+                           price: productPrice[index], desc: description)));
+                        },
+                        child: Container(
+                         
+                          height: MediaQuery.of(context).size.height * 0.37,
+                          width: MediaQuery.of(context).size.width * 0.85,
+                          child: Card(
+                             elevation: 10,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(children: [
+                              Row(
                                 
-                                          }
-                                        },
-                                        icon: isFavourite[index]
-                                            ? Icon(
-                                                Icons.favorite,
-                                                color: Colors.red,
-                                              )
-                                            : Icon(Icons.favorite_border),
-                                        // ? Icon(
-                                        //     Icons.favorite,
-                                        //     color: Colors.red,
-                                        //   )
-                                        // : Icon(Icons.favorite_border),
-                                        // Icon(
-                                        //   Icons.favorite_border_outlined,
-                                        //   color: pnameforfav.contains(productName[index])
-                                        //       ? Colors.red
-                                        //       : Colors.black,
-                                        // ),
-                                      ),
-                                      new Container(
-                                        color: Colors.transparent,
-                                        child: new Container(
-                                            decoration: new BoxDecoration(
-                                                color: Colors.orange[900],
-                                                borderRadius: new BorderRadius.all(
-                                                  Radius.circular(10.0),
-                                                )),
-                                            child: new Center(
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(6.0),
-                                                child: new Text(
-                                                  "30% off",
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                            )),
-                                      ),
-                                    ]),
-                                Image(
-                                  image: AssetImage(productImage[index]),
-                                  height: 120,
-                                  fit: BoxFit.contain,
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                      child: Text(
-                                        productName[index],
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 16),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsets.fromLTRB(8, 0, 10, 0),
-                                      child: Text(
-                                        '\$${productPrice[index]}',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 16),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     IconButton(
-                                        onPressed: () {
-                                          pnameforcart.add(productName[index]);
-                                          productimagecart.add(productImage[index]);
-                                          productpricecart.add(productPrice[index]);
-                                          setState(() {
-                                            cartnum++;
-                                          });
+                                      onPressed: () {
+                                        if (pnameforfav
+                                            .contains(productName[index])) {
+                                          print("Item already Exist");
                                           ScaffoldMessenger.of(context)
                                               .showSnackBar(SnackBar(
                                             backgroundColor: Colors.white70,
                                             content: Text(
-                                              'Added to cart',
-                                              style: TextStyle(color: Colors.black),
+                                              'Item Already exist in favourite',
+                                              style:
+                                                  TextStyle(color: Colors.black),
                                             ),
                                             duration: Duration(seconds: 2),
                                           ));
-                                        },
-                                        icon: Icon(Icons.shopping_cart_outlined)),
-                                  ],
-                                )
-                              ]),
-                            ),
+                                          setState(() {
+                                            ispressed = true;
+                                            isFavourite[index] = true;
+                                          });
+                                        } else {
+                                          pnameforfav.add(productName[index]);
+                                          productimagefav
+                                              .add(productImage[index]);
+                                          productpricefav
+                                              .add(productPrice[index]);
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(SnackBar(
+                                            backgroundColor: Colors.white70,
+                                            content: Text(
+                                              'Added to favorites',
+                                              style:
+                                                  TextStyle(color: Colors.black),
+                                            ),
+                                            duration: Duration(seconds: 2),
+                                          ));
+                                          setState(() {
+                                            ispressed = true;
+                                            isFavourite[index] = true;
+                                          });
+                                          // productName[index].isFavorite = true;
+                              
+                                        }
+                                      },
+                                      icon: isFavourite[index]
+                                          ? Icon(
+                                              Icons.favorite,
+                                              color: Colors.red,
+                                            )
+                                          : Icon(Icons.favorite_border),
+                                      // ? Icon(
+                                      //     Icons.favorite,
+                                      //     color: Colors.red,
+                                      //   )
+                                      // : Icon(Icons.favorite_border),
+                                      // Icon(
+                                      //   Icons.favorite_border_outlined,
+                                      //   color: pnameforfav.contains(productName[index])
+                                      //       ? Colors.red
+                                      //       : Colors.black,
+                                      // ),
+                                    ),
+                                    new Container(
+                                      color: Colors.transparent,
+                                      child: new Container(
+                                          decoration: new BoxDecoration(
+                                              color: Colors.orange[900],
+                                              borderRadius: new BorderRadius.all(
+                                                Radius.circular(10.0),
+                                              )),
+                                          child: new Center(
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(6.0),
+                                              child: new Text(
+                                                "30% off",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          )),
+                                    ),
+                                  ]),
+                              Image(
+                                image: AssetImage(productImage[index]),
+                                height: 120,
+                                fit: BoxFit.contain,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                    child: Text(
+                                      productName[index],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 16),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(8, 0, 10, 0),
+                                    child: Text(
+                                      '\$${productPrice[index]}',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 16),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        pnameforcart.add(productName[index]);
+                                        productimagecart.add(productImage[index]);
+                                        productpricecart.add(productPrice[index]);
+                                        setState(() {
+                                          cartnum++;
+                                        });
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                          backgroundColor: Colors.white70,
+                                          content: Text(
+                                            'Added to cart',
+                                            style: TextStyle(color: Colors.black),
+                                          ),
+                                          duration: Duration(seconds: 2),
+                                        ));
+                                      },
+                                      icon: Icon(Icons.shopping_cart_outlined)),
+                                ],
+                              )
+                            ]),
                           ),
                         ),
                       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shoppingcartforhackathon/Login.dart';
 import 'package:shoppingcartforhackathon/homepage.dart';
+import 'package:shoppingcartforhackathon/splashScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,6 +18,6 @@ class MyApp extends StatelessWidget {
           
           primarySwatch: Colors.blue,
         ),
-        home:Login());
+        home:Splash());
   }
 }

@@ -13,7 +13,7 @@ class About extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.42,
             width: MediaQuery.of(context).size.width * 1,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
@@ -22,9 +22,9 @@ class About extends StatelessWidget {
                   height: 200,
                   width: 200,
                 )),
-                SizedBox(
-                  height: 10,
-                ),
+                // SizedBox(
+                //   height:MediaQuery.of(context).size.height * 0.08,
+                // ),
                 Text(
                   'Drop line about us',
                   style: TextStyle(
@@ -32,9 +32,9 @@ class About extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
+                // SizedBox(
+                //  height:MediaQuery.of(context).size.height * 0.08,
+                // ),
                 Icon(
                   Icons.more_horiz_rounded,
                   color: Colors.white,

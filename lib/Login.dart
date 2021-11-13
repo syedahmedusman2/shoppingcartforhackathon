@@ -1,6 +1,10 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:shoppingcartforhackathon/SignUp.dart';
 import 'package:shoppingcartforhackathon/homepage.dart';
+
+Color col = Colors.black;
 
 class Login extends StatefulWidget {
   const Login({ Key? key }) : super(key: key);
@@ -10,13 +14,39 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  String password = '123456';
+  TextEditingController passwordController = TextEditingController();
+  validation()async{
+    if(passwordController.text==password){
+     await Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Home()));
+    }
+    else{
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Wrong Password"),
+            content: Text("Please try again"),
+            actions: <Widget>[
+              FlatButton(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.indigo[900],
-        title: Text('Login'),
+        backgroundColor: Colors.white,
+        title: Text('Login', style: TextStyle(color: Colors.orange[900]),),
       ),
       body: Column(
         children: <Widget>[
@@ -35,7 +65,7 @@ class _LoginState extends State<Login> {
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                     border: new Border.all(
-                      color: Colors.black,
+                      color: col,
                       width: 1.0,
                     ),
                borderRadius: BorderRadius.circular(20),
@@ -47,6 +77,10 @@ class _LoginState extends State<Login> {
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(13.0),
                   hintText: 'Username',
+                  hintStyle: TextStyle(
+                    color: col,
+                    
+                  ),
                   border: InputBorder.none,
                 ),
               ),
@@ -57,7 +91,7 @@ class _LoginState extends State<Login> {
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                     border: new Border.all(
-                      color: Colors.black,
+                      color: col,
                       width: 1.0,
                     ),
                borderRadius: BorderRadius.circular(20),
@@ -66,25 +100,27 @@ class _LoginState extends State<Login> {
               width: MediaQuery.of(context).size.width*0.53,
               child: TextField(
                 obscureText: true,
+                controller: passwordController,
                 decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(13.0),
                   border: InputBorder.none,
-                  hintText: 'Password',
+                  hintText: 'Password', hintStyle: TextStyle(color: col),
                   
                 ),
               ),
             ),
           ),
          OutlinedButton.icon(
-  icon: Icon(Icons.login, color: Colors.indigo.shade900),
-  label: Text("Login", style: TextStyle(color: Colors.indigo.shade900, fontSize: 20),),
+  icon: Icon(Icons.login, color: col),
+  label: Text("Login", style: TextStyle(color:col, fontSize: 20),),
   onPressed: (){
+    validation();
     
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
   },
   
   style: ElevatedButton.styleFrom(
-    side: BorderSide(width: 2.0, color: Colors.indigo.shade900),
+    side: BorderSide(width: 2.0, color: col),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(32.0),
     ),
@@ -101,6 +137,7 @@ InkWell(
                 style: TextStyle(
                     fontSize: 13.5,
                     fontWeight: FontWeight.bold,
+                    color: col,
                     fontFamily: "Regular"),
               ),
             )

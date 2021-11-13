@@ -1,4 +1,4 @@
-import 'dart:html';
+
 
 import 'package:flutter/material.dart';
 class ProductDetail extends StatelessWidget {
@@ -15,7 +15,7 @@ class ProductDetail extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.black,),onPressed: (){
+        leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.orange[900],),onPressed: (){
           Navigator.pop(context);
         },),
       ),
@@ -26,7 +26,7 @@ class ProductDetail extends StatelessWidget {
               children: <Widget>[
                 Container(width:MediaQuery.of(context).size.width*1,
                 height: MediaQuery.of(context).size.height*0.5,
-                child: Image.network(image)),
+                child: Image.asset(image)),
                 SizedBox(height: 20,),
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
                   Padding(

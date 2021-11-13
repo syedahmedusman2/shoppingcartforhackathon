@@ -9,7 +9,7 @@ class Profile extends StatelessWidget {
       
      appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.black,),onPressed: (){
+        leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.orange[900],),onPressed: (){
           Navigator.pop(context);
         },),
       ),
@@ -63,7 +63,7 @@ Widget listile(title, subtitle){
 
     title: Padding(
       padding: const EdgeInsets.fromLTRB(0, 1, 0, 7),
-      child: Text(title, style: TextStyle(color: Colors.purple),),
+      child: Text(title, style: TextStyle(color: Colors.orange[900]),),
     ),
     subtitle: Text(subtitle, style: TextStyle(fontWeight: FontWeight.bold),),
     

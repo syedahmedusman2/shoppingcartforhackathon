@@ -14,8 +14,14 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.indigo[900],
-        title: Text('Sign Up'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.orange[900],),
+          onPressed: () {
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Login()));
+          },
+        ),
+        backgroundColor: Colors.white,
+        title: Text('Sign Up', style: TextStyle(color: Colors.orange[900]),),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -31,7 +37,7 @@ class _SignUpState extends State<SignUp> {
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                       border: new Border.all(
-                        color: Colors.black,
+                        color: col,
                         width: 1.0,
                       ),
                  borderRadius: BorderRadius.circular(20),
@@ -52,7 +58,7 @@ class _SignUpState extends State<SignUp> {
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                       border: new Border.all(
-                        color: Colors.black,
+                        color: col,
                         width: 1.0,
                       ),
                  borderRadius: BorderRadius.circular(20),
@@ -73,7 +79,7 @@ class _SignUpState extends State<SignUp> {
                 decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                       border: new Border.all(
-                        color: Colors.black,
+                        color: col,
                         width: 1.0,
                       ),
                  borderRadius: BorderRadius.circular(20),
@@ -90,14 +96,14 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
            OutlinedButton.icon(
-        icon: Icon(Icons.app_registration_rounded, color: Colors.indigo.shade900),
-        label: Text("Sign Up", style: TextStyle(color: Colors.indigo.shade900, fontSize: 20),),
+        icon: Icon(Icons.app_registration_rounded, color: col),
+        label: Text("Sign Up", style: TextStyle(color: col, fontSize: 20),),
         onPressed: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
         },
         
         style: ElevatedButton.styleFrom(
-          side: BorderSide(width: 2.0, color: Colors.indigo.shade900),
+          side: BorderSide(width: 2.0, color: col),
           shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(32.0),
           ),
@@ -114,6 +120,7 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(
                       fontSize: 13.5,
                       fontWeight: FontWeight.bold,
+                      color: col,
                       fontFamily: "Regular"),
                 ),
               ),
